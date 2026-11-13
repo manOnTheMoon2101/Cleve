@@ -1,0 +1,322 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Cleve's Homepage — Est. 1996" } = Astro.props;
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: "/", label: "[ HOME ]" },
+  { href: "/about", label: "[ ABOUT ]" },
+  { href: "/projects", label: "[ PROJECTS ]" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+
+  <body>
+
+    <!-- ============================================
+         MOBILE OVERLAY — Windows 95 error dialog
+         Requires 5 OK clicks to dismiss
+         ============================================ -->
+    <div id="mobile-overlay" class="flex md:hidden fixed inset-0 z-50 items-center justify-center p-4 bg-[#008080]">
+      <div class="bg-[#c0c0c0] win95-raised w-80 max-w-full">
+
+        <!-- Title bar -->
+        <div
+          class="flex items-center justify-between px-2 py-1 text-white text-xs font-bold font-sans select-none"
+          style="background: linear-gradient(to right, #000080, #1084d0)"
+        >
+          <span class="flex items-center gap-1">
+            <span>⚠️</span> Error — Cleve's Homepage
+          </span>
+          <span class="bg-[#c0c0c0] text-black win95-raised px-1.5 py-0.5 text-xs font-bold cursor-default">✕</span>
+        </div>
+
+        <!-- Body — content swaps on each click -->
+        <div class="p-5 flex gap-4 items-start">
+          <span id="error-icon" class="text-5xl leading-none shrink-0 select-none">🚫</span>
+          <div class="font-sans text-sm text-black leading-snug">
+            <p id="error-title" class="font-bold mb-2">INCOMPATIBLE DEVICE DETECTED</p>
+            <div id="error-body">
+              <p class="mb-2">
+                It is currently <strong>1996</strong>. Mobile phones
+                cannot browse the World Wide Web.
+              </p>
+              <p class="mb-2">Please access this site on a desktop computer with:</p>
+              <ul class="text-xs mb-3 ml-3 space-y-0.5 list-none">
+                <li>• <strong>Windows 95</strong></li>
+                <li>• Netscape Navigator 4.0</li>
+                <li>• 800×600 resolution</li>
+                <li>• 256 colors minimum</li>
+              </ul>
+            </div>
+            <p class="font-mono text-[10px] text-[#555555]">
+              Error Code: 0x000000FF<br />
+              ERR_MOBILE_NOT_SUPPORTED_1996
+            </p>
+          </div>
+        </div>
+
+        <!-- OK button -->
+        <div class="pb-4 flex justify-center">
+          <button id="ok-btn" class="retro-btn min-w-22.5 text-center text-sm">OK</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================
+         MAIN SITE
+         Always visible on desktop (md:block).
+         Unlocked on mobile after 5 OK clicks.
+         ============================================ -->
+    <div id="main-site" class="hidden md:block">
+
+      <!-- Top marquee -->
+      <marquee
+        class="block bg-[#000066] text-yellow-400 font-bold font-sans text-xs py-1.5 border-2 border-yellow-400"
+        scrollamount="5"
+      >
+        🌟 WELCOME TO CLEVE'S HOMEPAGE 🌟 &nbsp;&nbsp;&nbsp;
+        🚧 FULL-STACK DEVELOPER &amp; WEB ARCHITECT &nbsp;&nbsp;&nbsp;;
+        ⭐ BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 AT 800×600 ⭐ &nbsp;&nbsp;&nbsp;
+      </marquee>
+
+      <!-- Page header -->
+      <header class="text-center py-6 pb-4 px-2">
+        <h1
+          class="font-comic m-0 leading-none tracking-widest"
+          style="font-size: clamp(2.5rem, 18vw, 72px); text-shadow: 4px 4px 0 #000000"
+        >
+          <span style="color:#ff4444">C</span>
+          <span style="color:#ffaa00">L</span>
+          <span style="color:#ffff00">E</span>
+          <span style="color:#44ff44">V</span>
+          <span style="color:#00ffff">E</span>
+        </h1>
+        <p
+          class="font-comic text-sm tracking-widest mt-2 animate-blink"
+          style="color:#ff69b4"
+        >
+          ✦ ✦ ✦ &nbsp; FULL-STACK DEVELOPER &nbsp; ✦ ✦ ✦
+        </p>
+        <p class="text-xs italic mt-1" style="color:#ff69b4; opacity:0.75">
+          "Building the digital future... one &lt;div&gt; at a time"
+        </p>
+      </header>
+
+      <!-- Navigation bar -->
+      <nav class="bg-[#000066] win95-outer px-4 py-2 font-sans font-bold text-sm flex flex-wrap items-center justify-center gap-y-1">
+        {navLinks.map((link) => (
+          <>
+            <a
+              href={link.href}
+              class:list={["mx-1", isActive(link.href) ? "nav-active" : ""]}
+            >
+              {link.label}
+            </a>
+            <span class="text-gray-500 mx-1">|</span>
+          </>
+        ))}
+        <button
+          data-copy-email
+          class="mx-1 bg-transparent border-none p-0 font-sans font-bold text-sm cursor-pointer"
+          style="color:#00ffff"
+        >
+          [ CONTACT ]
+        </button>
+      </nav>
+
+      <!-- Rainbow rule -->
+      <div class="h-1 bg-rainbow"></div>
+
+      <!-- Page slot -->
+      <main class="max-w-4xl mx-auto p-3 md:p-4">
+        <slot />
+      </main>
+
+      <!-- Rainbow rule -->
+      <div class="h-1 bg-rainbow"></div>
+
+      <!-- Footer -->
+      <footer class="bg-[#000044] win95-outer px-4 py-3 text-center">
+        <marquee direction="right" scrollamount="3" class="text-gray-400 text-xs font-sans">
+          © 1996 Cleve's Homepage — All Rights Reserved — No Hotlinking!!!
+        </marquee>
+        <p class="text-gray-500 text-xs mt-1 font-sans">
+          Last updated: November 1996
+        </p>
+      </footer>
+
+    </div>
+
+    <!-- 5-click OK gate -->
+    <script>
+      (() => {
+        const overlay  = document.getElementById('mobile-overlay');
+        const mainSite = document.getElementById('main-site');
+        const okBtn    = document.getElementById('ok-btn')    as HTMLButtonElement | null;
+        const icon     = document.getElementById('error-icon');
+        const title    = document.getElementById('error-title');
+        const body     = document.getElementById('error-body');
+
+        const STORAGE_KEY = 'cleve-mobile-unlocked';
+
+        function showSite() {
+          if (overlay)  overlay.style.display = 'none';
+          if (mainSite) {
+            mainSite.classList.remove('hidden');
+            mainSite.classList.add('block');
+          }
+        }
+
+        // Already dismissed this session — skip straight to the site
+        if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+          showSite();
+          return;
+        }
+
+        // Content for clicks 1–4 (shown after each click, before the 5th unlocks the site)
+        const steps = [
+          {
+            icon:  '⚠️',
+            title: 'ARE YOU SURE ABOUT THIS??',
+            body:  `<p class="mb-2">We <strong>strongly</strong> advise against this.
+                    This site was not designed for mobile devices.</p>
+                    <p class="mb-2">Click OK again to bypass safety protocol.</p>`,
+            btn:   'OK  (2 / 5)',
+          },
+          {
+            icon:  '❌',
+            title: 'BYPASSING SECURITY PROTOCOL',
+            body:  `<p class="mb-2">This action is being logged. Your IP address
+                    has been recorded.</p>
+                    <p class="mb-2 font-bold font-mono">192.168.0.69</p>
+                    <p class="mb-2">3 more confirmations required.</p>`,
+            btn:   'OK  (3 / 5)',
+          },
+          {
+            icon:  '☠️',
+            title: 'CRITICAL SYSTEM ALERT',
+            body:  `<p class="mb-2 font-bold">WARNING: CATASTROPHIC FAILURE IMMINENT</p>
+                    <p class="mb-2">Your mobile browser has been flagged for attempted
+                    desktop-site access.</p>
+                    <p class="mb-2">2 more confirmations required.</p>`,
+            btn:   'OK  (4 / 5)',
+          },
+          {
+            icon:  '💀',
+            title: 'POINT OF NO RETURN',
+            body:  `<p class="mb-2">You have <strong>ONE</strong> last chance to find
+                    a real computer.</p>
+                    <p class="mb-2 font-mono text-[10px]">
+                      SYSTEM INTEGRITY: 12%<br/>
+                      RENDER ENGINE: STRUGGLING<br/>
+                      NETSCAPE.EXE: NOT FOUND
+                    </p>`,
+            btn:   '⚠️  FINAL WARNING  (5 / 5)',
+          },
+        ];
+
+        let clicks = 0;
+
+        okBtn?.addEventListener('click', () => {
+          clicks++;
+
+          if (clicks >= 5) {
+            // Let them through and remember it
+            sessionStorage.setItem(STORAGE_KEY, '1');
+            showSite();
+            return;
+          }
+
+          // Swap dialog content
+          const s = steps[clicks - 1];
+          if (icon)  icon.textContent  = s.icon;
+          if (title) title.textContent = s.title;
+          if (body)  body.innerHTML    = s.body;
+          if (okBtn) okBtn.textContent = s.btn;
+        });
+      })();
+    </script>
+
+    <!-- 90s sparkle cursor trail -->
+    <script>
+      (() => {
+        const stars  = ['★', '✦', '✧', '✩', '✶', '·'];
+        const colors = ['#ff0000', '#ff9900', '#ffff00', '#00ff00', '#00ffff', '#ff00ff', '#ff69b4', '#ffffff'];
+        let lastTime = 0;
+
+        document.addEventListener('mousemove', (e) => {
+          const now = Date.now();
+          if (now - lastTime < 40) return;
+          lastTime = now;
+
+          const el = document.createElement('span');
+          el.textContent = stars[Math.floor(Math.random() * stars.length)];
+          el.style.cssText = [
+            'position:fixed',
+            `left:${e.clientX}px`,
+            `top:${e.clientY}px`,
+            `color:${colors[Math.floor(Math.random() * colors.length)]}`,
+            'font-size:12px',
+            'pointer-events:none',
+            'z-index:9999',
+            'animation:sparkle-fade 0.7s ease-out forwards',
+            'text-shadow:0 0 5px currentColor',
+            'user-select:none',
+          ].join(';');
+
+          document.body.appendChild(el);
+          el.addEventListener('animationend', () => el.remove());
+        });
+      })();
+    </script>
+
+    <!-- Copy-email clipboard script -->
+    <script>
+      document.addEventListener('click', (e) => {
+        const btn = (e.target as Element).closest('[data-copy-email]') as HTMLElement | null;
+        if (!btn) return;
+
+        const EMAIL = 'clevejohnclayton.2101@gmail.com';
+        const prevHTML  = btn.innerHTML;
+        const prevColor = btn.style.color;
+
+        const apply = () => {
+          btn.innerHTML   = '📋 EMAIL COPIED!!';
+          btn.style.color = '#00ff00';
+          setTimeout(() => {
+            btn.innerHTML   = prevHTML;
+            btn.style.color = prevColor;
+          }, 2000);
+        };
+
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(EMAIL).then(apply);
+        } else {
+          window.prompt('Copy this email address:', EMAIL);
+        }
+      });
+    </script>
+
+  </body>
+</html>

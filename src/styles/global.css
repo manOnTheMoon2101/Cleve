@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+/* =============================================
+   90s RETRO CUSTOM UTILITIES
+   ============================================= */
+
+@keyframes blink {
+  0%, 100% { visibility: visible; }
+  50% { visibility: hidden; }
+}
+
+/* Blinking animation */
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Comic Sans font */
+.font-comic {
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+}
+
+/* Windows 95 / raised bevel */
+.win95-raised {
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #808080;
+  border-right: 2px solid #808080;
+}
+
+/* Windows 95 / sunken (pressed) bevel */
+.win95-sunken {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+}
+
+/* Outer frame bevel (dark bg variation) */
+.win95-outer {
+  border-top: 2px solid #aaaaaa;
+  border-left: 2px solid #aaaaaa;
+  border-bottom: 2px solid #333333;
+  border-right: 2px solid #333333;
+}
+
+/* Inset box border */
+.border-inset {
+  border: 2px inset #666666;
+}
+
+/* Rainbow horizontal rule */
+.bg-rainbow {
+  background: linear-gradient(
+    to right,
+    #ff0000, #ff9900, #ffff00,
+    #00ff00, #00ffff, #0000ff,
+    #9900ff, #ff0000
+  );
+}
+
+/* Yellow/black construction stripes */
+.bg-construction {
+  background: repeating-linear-gradient(
+    45deg,
+    #000000 0px,
+    #000000 10px,
+    #ffcc00 10px,
+    #ffcc00 20px
+  );
+}
+
+/* LED-glow counter digits */
+.text-led {
+  color: #ff2200;
+  text-shadow: 0 0 8px #ff3300, 0 0 2px #ff0000;
+}
+
+/* Windows 95 gray button (works on <a> and <button>) */
+.retro-btn {
+  display: inline-block;
+  background-color: #c0c0c0;
+  color: #000000 !important;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: none !important;
+  padding: 5px 14px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-bottom: 2px solid #808080;
+  border-right: 2px solid #808080;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.retro-btn:hover,
+.retro-btn:visited {
+  color: #000000 !important;
+  text-decoration: none !important;
+}
+
+.retro-btn:active {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+  padding: 6px 13px 4px 15px;
+}
+
+/* Active nav link override */
+.nav-active {
+  color: #ffff00 !important;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* =============================================
+   GLOBAL BASE STYLES
+   ============================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  cursor: url('/cursor.svg') 0 0, auto;
+  /* 90s starfield */
+  background-color: #000022;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+  background-size: 53px 53px, 97px 97px;
+  background-position: 0 0, 27px 27px;
+  font-family: 'Times New Roman', Times, serif;
+  color: #ffffff;
+}
+
+/* 90s sparkle cursor trail */
+@keyframes sparkle-fade {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% - 28px)) scale(0); }
+}
+
+/* Classic 90s link colors */
+a                  { color: #00ffff; }
+a:visited          { color: #ff69b4; }
+a:hover            { color: #ffff00; text-decoration: underline; }
+
+/* 8-bit hand cursor for all interactive elements */
+a, button, [role="button"],
+input[type="submit"], input[type="button"],
+select, .cursor-pointer {
+  cursor: url('/cursor-pointer.svg') 8 0, pointer;
+}

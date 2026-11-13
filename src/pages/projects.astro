@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    emoji: '🏗️',
+    name: 'Gvelte',
+    description:
+      "Gvelte is a scaffolder. One command — gvelte create myapp — and you get a full-stack project: a SvelteKit 5 frontend running Svelte runes, and a compiled Go backend behind it. The two talk through a typed API client that Gvelte generates for you. No glue code. No boilerplate. Just a project that compiles and runs from the start.",
+    tech: ['SvelteKit', 'Bash', 'Go', 'Huh'],
+    year: '2026',
+    demo: 'https://www.21psychos.com/blog/gvelte-tease',
+  },
+  {
+    emoji: '🔨',
+    name: 'Bidstream',
+    description:
+      "We're the live auction floor your brand needs. You bring the stock. We bring the platform, the auctioneer, and the audience. Move 100+ units in a 60-minute show.",
+    tech: ['Next.js', 'Supabase', 'LiveKit', 'Stitch.io', 'Tailwind CSS'],
+    year: '2026',
+    demo: 'https://www.bidstream.online/',
+  },
+  {
+    emoji: '📑',
+    name: 'Signal',
+    description:
+      'Signal surfaces real buying intent from 3B+ contact points, showing your sales, marketing and leadership teams which buyers are ready right now — so you can target them directly, before your competition even sees them.',
+    tech: ['React', 'Supabase', 'Tailwind CSS', 'Advertising APIs'],
+    year: '2026',
+    demo: 'https://signalb2b.io/',
+  },
+  {
+    emoji: '🐕',
+    name: 'Supa Tail',
+    description:
+      'Supa Tail is a free NPO project — we believe every animal deserves a loving home. If your organisation would like to list animals for adoption on our platform, sign up and start connecting pets with people who care.',
+    tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'Better Auth', 'Framer Motion', 'Resend'],
+    year: '2026',
+    demo: 'https://supatail.co.za/',
+  },
+  {
+    emoji: '🎓',
+    name: 'EES',
+    description:
+      'A practical entrepreneurial school and business incubator built to upskill entrepreneurs and turn their ideas into sustainable, scalable businesses that create jobs, build communities and grow the economy.',
+    tech: ['React', 'Supabase', 'Resend'],
+    year: '2026',
+    demo: 'https://eliteentrepreneurschool.co.za/',
+  },
+  {
+    emoji: '💬',
+    name: 'Unilever WhatsApp Chatbot',
+    description:
+      'A WhatsApp-integrated chatbot that guides users to personalised skincare and personal care solutions. Users describe their concern — such as dry skin in winter or an oily scalp — and the bot intelligently recommends relevant Unilever products and routines based on their input.',
+    tech: ['SvelteKit', 'Supabase', 'Meta API'],
+    year: '2026',
+  },
+  {
+    emoji: '🚢',
+    name: 'Metaship',
+    description:
+      'A South African logistics platform streamlining local, import, and export freight operations — connecting shippers, carriers, and customs processes in a single workflow.',
+    tech: ['Vue.js', 'Express', 'MariaDB', 'AWS'],
+    year: '2024',
+    demo: 'https://metaship.ai/',
+  },
+  {
+    emoji: '🌾',
+    name: 'The Match Exchange',
+    description:
+      'A digital network connecting all supply chain stakeholders, enabling real-time price discovery and driving transport optimisation. Data-driven insights boost profits for farmers, transporters, and processors, while empowering financiers to fund the supply chain at lower risk.',
+    tech: ['AngularJS', 'Firebase', 'AWS'],
+    year: '2024',
+    demo: 'https://matchmx.com/',
+  },
+  {
+    emoji: '🏪',
+    name: 'Stock POS App',
+    description:
+      'Small POS app that uses a barcode scanner to log sales data to an Excel sheet.',
+    tech: ['Python'],
+    year: '2022',
+  },
+];
+---
+
+<Layout title="Projects — Cleve's Homepage">
+
+  <div class="bg-[#00003a] border-inset p-4">
+
+    <h2 class="font-comic text-xl pb-1 mt-0 mb-2 border-b border-dashed border-cyan-800" style="color:#00ffff">
+      📁 My Projects
+    </h2>
+    <p class="text-gray-300 text-sm mb-5">
+      Here's what I've shipped. Click the Demo buttons to check them out live!
+    </p>
+
+    <!-- 2-column project grid -->
+    <table width="100%" cellspacing="8" cellpadding="0">
+      {Array.from({ length: Math.ceil(projects.length / 2) }, (_, row) => (
+        <tr style="vertical-align: top;">
+          {projects.slice(row * 2, row * 2 + 2).map((p) => (
+            <td style="width: 50%" class="bg-[#000044] win95-outer p-4">
+
+              <!-- Project header -->
+              <div class="flex items-start justify-between mb-2 gap-2">
+                <h3 class="font-comic text-base m-0 text-yellow-400">
+                  {p.emoji} {p.name}
+                </h3>
+                <span class="font-mono text-[10px] text-green-400 border border-green-800 px-1 shrink-0 mt-0.5">
+                  {p.demo ? 'LIVE' : 'LOCAL'}
+                </span>
+              </div>
+
+              <!-- Description -->
+              <p class="text-gray-300 text-xs leading-relaxed mb-3">{p.description}</p>
+
+              <!-- Tech badges -->
+              <div class="flex flex-wrap gap-1 mb-3">
+                {p.tech.map((t) => (
+                  <span class="font-mono text-[10px] text-cyan-300 bg-[#000066] border border-[#003366] px-1 py-0.5">
+                    {t}
+                  </span>
+                ))}
+              </div>
+
+              <!-- Links row — Demo button only shown when a URL exists -->
+              <div class="flex items-center gap-2">
+                {p.demo && (
+                  <a href={p.demo} target="_blank" rel="noopener noreferrer" class="retro-btn">
+                    🌐 Demo
+                  </a>
+                )}
+                <span class="text-gray-600 text-xs ml-auto font-mono">{p.year}</span>
+              </div>
+
+            </td>
+          ))}
+          {/* Pad last row if odd number of projects */}
+          {projects.slice(row * 2, row * 2 + 2).length === 1 && <td style="width: 50%"></td>}
+        </tr>
+      ))}
+    </table>
+
+    <hr class="border-[#1a3a5c] my-5" />
+
+ 
+  </div>
+
+</Layout>
