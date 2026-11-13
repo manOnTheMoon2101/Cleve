@@ -156,6 +156,6 @@ a:hover            { color: #ffff00; text-decoration: underline; }
 /* 8-bit hand cursor for all interactive elements */
 a, button, [role="button"],
 input[type="submit"], input[type="button"],
-select, .cursor-pointer {
+select, .cursor-pointer, .retro-btn {
   cursor: url('/cursor-pointer.svg') 8 0, pointer;
 }
